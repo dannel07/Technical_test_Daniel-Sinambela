@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: taskdb
+      POSTGRES_USER: taskuser
+      POSTGRES_PASSWORD: taskpass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://taskuser:taskpass@db:5432/taskdb
+      LLM_ENABLED: "true"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      LLM_BASE_URL: https://api.openai.com/v1
+      LLM_MODEL: gpt-4o-mini
+    ports:
+      - "8010:8010"
+    depends_on:
+      - db
+volumes:
+  pgdata:

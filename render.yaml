@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: task-management-api
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://user:password@host:5432/dbname
+      - key: OPENAI_API_KEY
+        value: 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
+      - key: LLM_ENABLED
+        value: true
