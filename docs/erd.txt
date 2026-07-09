@@ -1,0 +1,22 @@
+Entity Relationship Diagram (ERD)
+
+Users
+- id (PK)
+- username
+- name
+- email
+- password_hash
+- created_at
+
+Tasks
+- id (PK)
+- title
+- description
+- status
+- deadline
+- assignee_id (FK -> Users.id)
+- created_at
+- updated_at
+
+Relationship:
+- Users 1 --- * Tasks
